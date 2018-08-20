@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import {
-  Container, Content, Form, Item, Input, Button, Text,
-} from 'native-base';
+import { View, Text } from 'react-native';
 import { Auth } from 'aws-amplify';
-
-const styles = StyleSheet.create({
-  error: {
-    margin: 16,
-    color: 'red',
-  },
-});
+import PlainTextInput from '../components/PlainTextInput';
+import LoadingButton from '../components/LoadingButton';
+import ErrorMessageText from '../components/ErrorMessageText';
+import { commonStyles } from '../styles/common';
 
 export default class SignUpConfirmScreen extends Component {
   state = {
@@ -18,7 +12,7 @@ export default class SignUpConfirmScreen extends Component {
     errorMessage: '',
   };
 
-  onPress() {
+  onConfirmPress() {
     const { navigation } = this.props;
     const { confirmCode } = this.state;
     const emailAddress = navigation.getParam('emailAddress', '');
@@ -38,23 +32,19 @@ export default class SignUpConfirmScreen extends Component {
   render() {
     const { errorMessage } = this.state;
     return (
-      <Container>
-        <Content style={{ margin: 16 }}>
-          <Text style={{ margin: 16 }}>Please check your email for a confirmation code.</Text>
-          <Form>
-            <Item>
-              <Input
-                placeholder="Code"
-                onChangeText={confirmCode => this.setState({ confirmCode })}
-              />
-            </Item>
-            <Text style={styles.error}>{errorMessage}</Text>
-            <Button onPress={() => this.onPress()} block>
-              <Text>Confirm</Text>
-            </Button>
-          </Form>
-        </Content>
-      </Container>
+      <View style={commonStyles.screen}>
+        <Text style={{ margin: 16 }}>Please check your email for a confirmation code.</Text>
+        <PlainTextInput
+          placeholder="Code"
+          onChangePlainText={confirmCode => this.setState({ confirmCode })}
+        />
+        <ErrorMessageText message={errorMessage} />
+        <LoadingButton
+          title="Confirm"
+          isLoading={false}
+          onLoadButtonPress={() => this.onConfirmPress()}
+        />
+      </View>
     );
   }
 }

@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import {
-  Container, Content, Form, Item, Input, Button, Text,
-} from 'native-base';
+import { View, Text } from 'react-native';
 import { Auth } from 'aws-amplify';
-
-const styles = StyleSheet.create({
-  error: {
-    margin: 16,
-    color: 'red',
-  },
-});
+import PlainTextInput from '../components/PlainTextInput';
+import SecretTextInput from '../components/SecretTextInput';
+import LoadingButton from '../components/LoadingButton';
+import ErrorMessageText from '../components/ErrorMessageText';
+import { commonStyles } from '../styles/common';
 
 export default class SignUpEntryScreen extends Component {
   static navigationOptions = {
@@ -25,7 +20,7 @@ export default class SignUpEntryScreen extends Component {
     isLoading: false,
   };
 
-  onPress() {
+  onSignUpPress() {
     this.setState({ isLoading: true });
 
     const { emailAddress, password, confirmedPassword } = this.state;
@@ -56,48 +51,29 @@ export default class SignUpEntryScreen extends Component {
   render() {
     const { errorMessage, isLoading } = this.state;
     return (
-      <Container>
-        <Content style={{ margin: 16 }}>
-          <Text style={{ margin: 16 }}>
-            You will need access to the email address provided to verify your account.
-          </Text>
-          <Form>
-            <Item>
-              <Input
-                placeholder="Email"
-                autoCapitalize="none"
-                autoCorrect={false}
-                clearButtonMode="always"
-                onChangeText={emailAddress => this.setState({ emailAddress })}
-              />
-            </Item>
-            <Item>
-              <Input
-                placeholder="Password"
-                autoCapitalize="none"
-                autoCorrect={false}
-                secureTextEntry
-                clearButtonMode="always"
-                onChangeText={password => this.setState({ password })}
-              />
-            </Item>
-            <Item>
-              <Input
-                placeholder="Confirm Password"
-                autoCapitalize="none"
-                autoCorrect={false}
-                secureTextEntry
-                clearButtonMode="always"
-                onChangeText={confirmedPassword => this.setState({ confirmedPassword })}
-              />
-            </Item>
-            <Text style={styles.error}>{errorMessage}</Text>
-            <Button onPress={() => this.onPress()} block>
-              <Text>{isLoading ? 'Loading ...' : 'Sign-up'}</Text>
-            </Button>
-          </Form>
-        </Content>
-      </Container>
+      <View style={commonStyles.screen}>
+        <Text style={{ margin: 16 }}>
+          You will need access to the email address provided to verify your account.
+        </Text>
+        <PlainTextInput
+          placeholder="Email"
+          onChangePlainText={emailAddress => this.setState({ emailAddress })}
+        />
+        <SecretTextInput
+          placeholder="Password"
+          onChangeSecretText={password => this.setState({ password })}
+        />
+        <SecretTextInput
+          placeholder="Confirm Password"
+          onChangeSecretText={confirmedPassword => this.setState({ confirmedPassword })}
+        />
+        <ErrorMessageText message={errorMessage} />
+        <LoadingButton
+          title="Sign-up"
+          isLoading={isLoading}
+          onLoadButtonPress={() => this.onSignUpPress()}
+        />
+      </View>
     );
   }
 }

@@ -13,21 +13,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const SecretTextInput = ({ placeholder, onChangeSecretText }) => (
+const PlainTextInput = ({ placeholder, onChangePlainText }) => (
   <TextInput
     style={styles.textInput}
     placeholder={placeholder}
     autoCapitalize="none"
     autoCorrect={false}
-    secureTextEntry
+    keyboardType="email-address"
     clearButtonMode="always"
-    onChangeText={onChangeSecretText}
+    onChangeText={onChangePlainText}
   />
 );
 
-SecretTextInput.propTypes = {
+PlainTextInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
-  onChangeSecretText: PropTypes.func.isRequired,
+  onChangePlainText: PropTypes.func.isRequired,
 };
 
-export default SecretTextInput;
+export default PlainTextInput;

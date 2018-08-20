@@ -18,32 +18,12 @@ export const colors = {
   errorTextGray: '#6c6c6c',
 };
 
-// text styles
+// common styles
 
-export const textStyles = StyleSheet.create({
-  errorText: {
-    margin: 16,
-    color: 'red',
-  },
-  callToActionText: {
-    paddingLeft: 4,
-    color: 'blue',
-  },
-});
-
-// component styles
-
-export const componentStyles = StyleSheet.create({
-  textInput: {
-    height: 44,
-    margin: 8,
-    padding: 8,
-    borderColor: 'white',
-    borderWidth: 1,
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 32,
+export const commonStyles = StyleSheet.create({
+  screen: {
+    padding: 16,
+    flex: 1,
+    backgroundColor: 'white',
   },
 });

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {
-  Container, Content, Text, Button,
-} from 'native-base';
+import { View, Text, Button } from 'react-native';
 import { Auth } from 'aws-amplify';
+import { commonStyles } from '../styles/common';
 
 export default class SignInSuccessScreen extends Component {
   static navigationOptions = {
@@ -33,17 +32,13 @@ export default class SignInSuccessScreen extends Component {
   render() {
     const { accessToken } = this.state;
     return (
-      <Container>
-        <Content style={{ margin: 16 }}>
-          <Text style={{ margin: 16 }}>
-            Sign-in success, accessToken:
-            {accessToken}
-          </Text>
-          <Button block onPress={() => this.signOut()}>
-            <Text>Sign out</Text>
-          </Button>
-        </Content>
-      </Container>
+      <View style={commonStyles.screen}>
+        <Text style={{ margin: 16 }}>
+          Sign-in success, accessToken:
+          {accessToken}
+        </Text>
+        <Button title="Sign out" onPress={() => this.signOut()} />
+      </View>
     );
   }
 }
