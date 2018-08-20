@@ -12,7 +12,7 @@ Install dependencies with:
 
 ### AWS Cognito
 
-In your AWS account, setup a user pool then `mv config.json.template config.json` and add your AWS config.
+In your AWS account, [setup a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-cognito-user-pools.html) then `mv config.json.template config.json` and add your AWS config.
 
 ### Running the app
 
