@@ -33,10 +33,6 @@ export default class SignInEntryScreen extends Component {
     isLoading: false,
   };
 
-  componentWillReceiveProps() {
-    console.log('componentWillReceiveProps');
-  }
-
   onPress() {
     const { emailAddress, password } = this.state;
     const { navigation } = this.props;
