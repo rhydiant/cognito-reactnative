@@ -4,7 +4,7 @@ Native (iOS/Android) app with authentication for AWS Cognito.
 
 ## Usage
 
-Follow the [install instructions](https://facebook.github.io/react-native/docs/getting-started) to setup React Native.
+Follow the [install instructions](https://facebook.github.io/react-native/docs/getting-started) (Building Projects with Native Code) to setup React Native.
 
 Install dependencies with:
 
