@@ -3,8 +3,6 @@ import Amplify from "aws-amplify";
 
 import { aws as awsConfig } from "../config.json";
 
-console.log(`config is ${awsConfig}`);
-
 import SignInEntryScreen from "./screens/SignInEntryScreen";
 import SignInSuccessScreen from "./screens/SignInSuccessScreen";
 
@@ -12,7 +10,7 @@ import SignUpEntryScreen from "./screens/SignUpEntryScreen";
 import SignUpConfirmScreen from "./screens/SignUpConfirmScreen";
 import SignUpSuccessScreen from "./screens/SignUpSuccessScreen";
 
-// navigation stacks
+// setup navigation stacks
 
 const SignUpStack = createStackNavigator({
   SignUpEntry: { screen: SignUpEntryScreen },
@@ -36,7 +34,7 @@ const App = createStackNavigator(
   }
 );
 
-// AWS config
+// setup AWS config
 
 Amplify.configure({
   Auth: {
