@@ -1,21 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextInput, StyleSheet } from 'react-native';
-
-const styles = StyleSheet.create({
-  textInput: {
-    height: 44,
-    margin: 8,
-    padding: 8,
-    backgroundColor: '#E8F3F9',
-    fontSize: 16,
-    borderRadius: 5,
-  },
-});
+import { TextInput } from 'react-native';
+import { commonStyles } from '../styles/common';
 
 const PlainTextInput = ({ placeholder, onChangePlainText }) => (
   <TextInput
-    style={styles.textInput}
+    style={commonStyles.textInput}
     placeholder={placeholder}
     autoCapitalize="none"
     autoCorrect={false}

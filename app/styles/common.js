@@ -18,12 +18,34 @@ export const colors = {
   errorTextGray: '#6c6c6c',
 };
 
-// common styles
+// component base styles
 
 export const commonStyles = StyleSheet.create({
+  // base style for all screens
   screen: {
     padding: 16,
     flex: 1,
     backgroundColor: 'white',
+  },
+  // base style for all text inputs
+  textInput: {
+    height: 44,
+    margin: 8,
+    padding: 8,
+    backgroundColor: '#E8F3F9',
+    fontSize: 16,
+    borderRadius: 5,
+  },
+  // base style for all buttons
+  button: {
+    backgroundColor: '#067BC2',
+    padding: 16,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
 });

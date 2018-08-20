@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View } from 'react-native';
+import StandardButton from '../components/StandardButton';
 import { commonStyles } from '../styles/common';
 
 export default class SignUpSuccessScreen extends Component {
@@ -12,10 +13,9 @@ export default class SignUpSuccessScreen extends Component {
     const { navigation } = this.props;
     return (
       <View style={commonStyles.screen}>
-        <Text style={{ margin: 16 }}>Done, now you can sign-in.</Text>
-        <Button
+        <StandardButton
           title="Close"
-          onPress={() => {
+          onStandardButtonPress={() => {
             navigation.dismiss();
           }}
         />

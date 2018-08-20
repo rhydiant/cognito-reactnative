@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { Auth } from 'aws-amplify';
+import StandardButton from '../components/StandardButton';
 import { commonStyles } from '../styles/common';
 
 export default class SignInSuccessScreen extends Component {
@@ -32,13 +33,15 @@ export default class SignInSuccessScreen extends Component {
   render() {
     const { accessToken } = this.state;
     return (
-      <View style={commonStyles.screen}>
-        <Text style={{ margin: 16 }}>
-          Sign-in success, accessToken:
-          {accessToken}
-        </Text>
-        <Button title="Sign out" onPress={() => this.signOut()} />
-      </View>
+      <ScrollView>
+        <View style={commonStyles.screen}>
+          <Text style={{ margin: 16 }}>
+            Sign-in success, accessToken:
+            {accessToken}
+          </Text>
+          <StandardButton title="Sign out" onStandardButtonPress={() => this.signOut()} />
+        </View>
+      </ScrollView>
     );
   }
 }
