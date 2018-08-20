@@ -1,51 +1,64 @@
-import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
 import {
-  Container,
-  Content,
-  Form,
-  Item,
-  Input,
-  Button,
-  Text
-} from "native-base";
-import { Auth } from "aws-amplify";
+  Container, Content, Form, Item, Input, Button, Text,
+} from 'native-base';
+import { Auth } from 'aws-amplify';
+
+const styles = StyleSheet.create({
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 32,
+  },
+  callToActionText: {
+    paddingLeft: 4,
+    color: 'blue',
+  },
+  error: {
+    margin: 16,
+    color: 'red',
+  },
+});
 
 export default class SignInEntryScreen extends Component {
-  state = {
-    emailAddress: "",
-    password: "",
-    errorMessage: "",
-    isLoading: false,
-    accessToken: ""
+  static navigationOptions = {
+    title: 'Sign-in',
   };
 
-  static navigationOptions = {
-    title: "Sign-in"
+  state = {
+    emailAddress: '',
+    password: '',
+    errorMessage: '',
+    isLoading: false,
   };
+
+  componentWillReceiveProps() {
+    console.log('componentWillReceiveProps');
+  }
 
   onPress() {
-    this.setState(_ => {
-      return { isLoading: true, errorMessage: "" };
-    });
+    const { emailAddress, password } = this.state;
+    const { navigation } = this.props;
 
-    Auth.signIn(this.state.emailAddress, this.state.password)
-      .then(user => {
-        console.log(user);
-        this.setState(_ => {
-          return { isLoading: false, errorMessage: "" };
-        });
-        this.props.navigation.navigate("SignInSuccess");
+    this.setState({ isLoading: true, errorMessage: '' });
+
+    Auth.signIn(emailAddress, password)
+      .then(() => {
+        this.setState({ isLoading: false, errorMessage: '' });
+        navigation.navigate('SignInSuccess');
       })
-      .catch(err => {
-        console.log(err);
-        this.setState(_ => {
-          return { isLoading: false, errorMessage: err.message || err };
+      .catch((err) => {
+        this.setState({
+          isLoading: false,
+          errorMessage: err.message || err,
         });
       });
   }
 
   render() {
+    const { errorMessage, isLoading } = this.state;
+    const { navigation } = this.props;
     return (
       <Container>
         <Content style={{ margin: 16 }}>
@@ -53,26 +66,26 @@ export default class SignInEntryScreen extends Component {
             <Item>
               <Input
                 placeholder="Email"
-                autoCapitalize={"none"}
+                autoCapitalize="none"
                 autoCorrect={false}
-                keyboardType={"email-address"}
-                clearButtonMode={"always"}
+                keyboardType="email-address"
+                clearButtonMode="always"
                 onChangeText={emailAddress => this.setState({ emailAddress })}
               />
             </Item>
             <Item>
               <Input
                 placeholder="Password"
-                autoCapitalize={"none"}
+                autoCapitalize="none"
                 autoCorrect={false}
-                secureTextEntry={true}
-                clearButtonMode={"always"}
+                secureTextEntry
+                clearButtonMode="always"
                 onChangeText={password => this.setState({ password })}
               />
             </Item>
-            <Text style={styles.error}>{this.state.errorMessage}</Text>
-            <Button onPress={this.onPress.bind(this)} block>
-              <Text>{this.state.isLoading ? "Loading ..." : "Sign-in"}</Text>
+            <Text style={styles.error}>{errorMessage}</Text>
+            <Button onPress={() => this.onPress()} block>
+              <Text>{isLoading ? 'Loading ...' : 'Sign-in'}</Text>
             </Button>
           </Form>
           <View style={styles.footer}>
@@ -80,7 +93,7 @@ export default class SignInEntryScreen extends Component {
             <Text
               style={styles.callToActionText}
               onPress={() => {
-                this.props.navigation.navigate("SignUpEntry");
+                navigation.navigate('SignUpEntry');
               }}
             >
               Sign-up.
@@ -91,19 +104,3 @@ export default class SignInEntryScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 32
-  },
-  callToActionText: {
-    paddingLeft: 4,
-    color: "blue"
-  },
-  error: {
-    margin: 16,
-    color: "red"
-  }
-});

@@ -1,50 +1,46 @@
-import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import {
-  Container,
-  Content,
-  Form,
-  Item,
-  Input,
-  Button,
-  Text
-} from "native-base";
-import { Auth } from "aws-amplify";
+  Container, Content, Form, Item, Input, Button, Text,
+} from 'native-base';
+import { Auth } from 'aws-amplify';
+
+const styles = StyleSheet.create({
+  error: {
+    margin: 16,
+    color: 'red',
+  },
+});
 
 export default class SignUpConfirmScreen extends Component {
   state = {
-    confirmCode: "",
-    errorMessage: ""
+    confirmCode: '',
+    errorMessage: '',
   };
 
   onPress() {
-    var emailAddress = this.props.navigation.getParam("emailAddress", "");
+    const { navigation } = this.props;
+    const { confirmCode } = this.state;
+    const emailAddress = navigation.getParam('emailAddress', '');
 
-    Auth.confirmSignUp(emailAddress, this.state.confirmCode, {
-      forceAliasCreation: true
+    Auth.confirmSignUp(emailAddress, confirmCode, {
+      forceAliasCreation: true,
     })
-      .then(data => {
-        console.log(data);
-        this.setState(_ => {
-          return { errorMessgae: "" };
-        });
-        this.props.navigation.navigate("SignUpSuccess");
+      .then(() => {
+        this.setState({ errorMessage: '' });
+        navigation.navigate('SignUpSuccess');
       })
-      .catch(err => {
-        console.log(err);
-        this.setState(_ => {
-          return { errorMessgae: err.message || err };
-        });
+      .catch((err) => {
+        this.setState({ errorMessage: err.message || err });
       });
   }
 
   render() {
+    const { errorMessage } = this.state;
     return (
       <Container>
         <Content style={{ margin: 16 }}>
-          <Text style={{ margin: 16 }}>
-            Please check your email for a confirmation code.
-          </Text>
+          <Text style={{ margin: 16 }}>Please check your email for a confirmation code.</Text>
           <Form>
             <Item>
               <Input
@@ -52,8 +48,8 @@ export default class SignUpConfirmScreen extends Component {
                 onChangeText={confirmCode => this.setState({ confirmCode })}
               />
             </Item>
-            <Text style={styles.error}>{this.state.errorMessage}</Text>
-            <Button onPress={this.onPress.bind(this)} block>
+            <Text style={styles.error}>{errorMessage}</Text>
+            <Button onPress={() => this.onPress()} block>
               <Text>Confirm</Text>
             </Button>
           </Form>
@@ -62,10 +58,3 @@ export default class SignUpConfirmScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  error: {
-    margin: 16,
-    color: "red"
-  }
-});

@@ -1,13 +1,16 @@
-import React, { Component } from "react";
-import { Container, Content, Text, Button } from "native-base";
+import React, { Component } from 'react';
+import {
+  Container, Content, Text, Button,
+} from 'native-base';
 
 export default class SignUpSuccessScreen extends Component {
   static navigationOptions = {
-    title: "Sign-up Success",
-    headerLeft: null
+    title: 'Sign-up Success',
+    headerLeft: null,
   };
 
   render() {
+    const { navigation } = this.props;
     return (
       <Container>
         <Content style={{ margin: 16 }}>
@@ -15,7 +18,7 @@ export default class SignUpSuccessScreen extends Component {
           <Button
             block
             onPress={() => {
-              this.props.navigation.dismiss();
+              navigation.dismiss();
             }}
           >
             <Text>Close</Text>
