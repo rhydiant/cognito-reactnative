@@ -1,0 +1,7 @@
+{
+  "aws": {
+    "region": "your-aws-region",
+    "userPoolId": "your-aws-cognito-user-pool",
+    "userPoolWebClientId": "your-aws-cognito-client-id"
+  }
+}
