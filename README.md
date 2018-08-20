@@ -1,6 +1,6 @@
 # cognito-reactnative
 
-Native (iOS/Android) app with authentication for AWS Cognito.
+Native (iOS/Android) app, authenticating against AWS Cognito.
 
 ## Usage
 
