@@ -1,25 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
 import {
-  Container, Content, Form, Item, Input, Button, Text,
-} from 'native-base';
+  View, TextInput, Button, Text,
+} from 'react-native';
 import { Auth } from 'aws-amplify';
-
-const styles = StyleSheet.create({
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 32,
-  },
-  callToActionText: {
-    paddingLeft: 4,
-    color: 'blue',
-  },
-  error: {
-    margin: 16,
-    color: 'red',
-  },
-});
+import SecretTextInput from '../components/SecretTextInput';
+import { textStyles, componentStyles } from '../styles/common';
 
 export default class SignInEntryScreen extends Component {
   static navigationOptions = {
@@ -56,47 +41,35 @@ export default class SignInEntryScreen extends Component {
     const { errorMessage, isLoading } = this.state;
     const { navigation } = this.props;
     return (
-      <Container>
-        <Content style={{ margin: 16 }}>
-          <Form>
-            <Item>
-              <Input
-                placeholder="Email"
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="email-address"
-                clearButtonMode="always"
-                onChangeText={emailAddress => this.setState({ emailAddress })}
-              />
-            </Item>
-            <Item>
-              <Input
-                placeholder="Password"
-                autoCapitalize="none"
-                autoCorrect={false}
-                secureTextEntry
-                clearButtonMode="always"
-                onChangeText={password => this.setState({ password })}
-              />
-            </Item>
-            <Text style={styles.error}>{errorMessage}</Text>
-            <Button onPress={() => this.onPress()} block>
-              <Text>{isLoading ? 'Loading ...' : 'Sign-in'}</Text>
-            </Button>
-          </Form>
-          <View style={styles.footer}>
-            <Text>Need an account?</Text>
-            <Text
-              style={styles.callToActionText}
-              onPress={() => {
-                navigation.navigate('SignUpEntry');
-              }}
-            >
-              Sign-up.
-            </Text>
-          </View>
-        </Content>
-      </Container>
+      <View style={{ margin: 16 }}>
+        <TextInput
+          style={componentStyles.textInput}
+          placeholder="Email"
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+          clearButtonMode="always"
+          onChangeText={emailAddress => this.setState({ emailAddress })}
+        />
+        <SecretTextInput onChangePasswordText={password => this.setState({ password })} />
+        <Text style={textStyles.errorText}>{errorMessage}</Text>
+        <Button
+          title={isLoading ? 'Loading ...' : 'Sign-in'}
+          onPress={() => this.onPress()}
+          block
+        />
+        <View style={componentStyles.footer}>
+          <Text>Need an account?</Text>
+          <Text
+            style={textStyles.callToActionText}
+            onPress={() => {
+              navigation.navigate('SignUpEntry');
+            }}
+          >
+            Sign-up.
+          </Text>
+        </View>
+      </View>
     );
   }
 }
